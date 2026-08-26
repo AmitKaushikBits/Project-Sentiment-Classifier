@@ -11,4 +11,6 @@ data/raw/
 *.csv
 data/raw/*
 dvc-storage/*
+mlruns/
+*.db
 EOF
