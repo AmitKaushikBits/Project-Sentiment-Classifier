@@ -18,7 +18,7 @@ stages:
       size: 3986606
     - path: reports/validation_report.json
       hash: md5
-      md5: 93f712233014f37f29939b0ec71a5288
+      md5: 3cc2805b1ce57d082fecdeb2067195c3
       size: 229
   features:
     cmd: python src/features.py
@@ -34,7 +34,7 @@ stages:
     outs:
     - path: models/tfidf_vectorizer.joblib
       hash: md5
-      md5: d13a2ee9c51e252f600d9127a532ceb7
+      md5: 61ee09618cfb415ba87d839c78170a3b
       size: 185772
   train:
     cmd: python src/train.py
@@ -45,7 +45,7 @@ stages:
       size: 3986606
     - path: models/tfidf_vectorizer.joblib
       hash: md5
-      md5: d13a2ee9c51e252f600d9127a532ceb7
+      md5: 61ee09618cfb415ba87d839c78170a3b
       size: 185772
     - path: src/train.py
       hash: md5
