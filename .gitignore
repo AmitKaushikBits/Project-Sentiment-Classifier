@@ -1,0 +1,14 @@
+cat > .gitignore << 'EOF'
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+mlruns/
+models/
+data/raw/
+*.pkl
+*.joblib
+*.csv
+data/raw/*
+dvc-storage/*
+EOF
