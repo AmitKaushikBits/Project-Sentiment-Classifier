@@ -1,0 +1,17 @@
+{
+  "logistic_regression": {
+    "accuracy": 0.7749090909090909,
+    "f1_macro": 0.8353684987081885,
+    "f1_weighted": 0.7749361974028325,
+    "precision_macro": 0.8370963582913578,
+    "recall_macro": 0.8339718964834567
+  },
+  "linear_svm": {
+    "accuracy": 0.7476363636363637,
+    "f1_macro": 0.8158591033437007,
+    "f1_weighted": 0.7478248176099732,
+    "precision_macro": 0.8188593328132946,
+    "recall_macro": 0.8129448335948745
+  },
+  "best_model": "logistic_regression"
+}

@@ -1,0 +1,9 @@
+{
+  "n_valid_rows": 13748,
+  "vocab_size": 5000,
+  "ngram_range": [
+    1,
+    2
+  ],
+  "max_features": 5000
+}
