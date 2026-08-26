@@ -1,0 +1,25 @@
+stages:
+  ingest:
+    cmd: python src/ingest.py
+    deps:
+    - data/merge/merged_sentiment_dataset.csv
+    - src/ingest.py
+    outs:
+    - data/clean_reviews.csv
+    - reports/validation_report.json
+  features:
+    cmd: python src/features.py
+    deps:
+    - data/clean_reviews.csv
+    - src/features.py
+    outs:
+    - models/tfidf_vectorizer.joblib
+  train:
+    cmd: python src/train.py
+    deps:
+    - data/clean_reviews.csv
+    - models/tfidf_vectorizer.joblib
+    - src/train.py
+    outs:
+    - models/best_model.joblib
+    - reports/model_comparison.json

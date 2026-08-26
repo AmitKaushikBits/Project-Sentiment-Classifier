@@ -1,0 +1,62 @@
+schema: '2.0'
+stages:
+  ingest:
+    cmd: python src/ingest.py
+    deps:
+    - path: data/merge/merged_sentiment_dataset.csv
+      hash: md5
+      md5: a11183f94639aa25e894cee763543e9f
+      size: 1068208
+    - path: src/ingest.py
+      hash: md5
+      md5: ed83aaa0b1bbc2424735ecd85ee09b7f
+      size: 9731
+    outs:
+    - path: data/clean_reviews.csv
+      hash: md5
+      md5: 6b36a8b9b822d7f8b0b14e71e3f208ab
+      size: 3986606
+    - path: reports/validation_report.json
+      hash: md5
+      md5: 93f712233014f37f29939b0ec71a5288
+      size: 229
+  features:
+    cmd: python src/features.py
+    deps:
+    - path: data/clean_reviews.csv
+      hash: md5
+      md5: 6b36a8b9b822d7f8b0b14e71e3f208ab
+      size: 3986606
+    - path: src/features.py
+      hash: md5
+      md5: cc638f965c9cd136e8eb2ff9354eb9f5
+      size: 1584
+    outs:
+    - path: models/tfidf_vectorizer.joblib
+      hash: md5
+      md5: d13a2ee9c51e252f600d9127a532ceb7
+      size: 185772
+  train:
+    cmd: python src/train.py
+    deps:
+    - path: data/clean_reviews.csv
+      hash: md5
+      md5: 6b36a8b9b822d7f8b0b14e71e3f208ab
+      size: 3986606
+    - path: models/tfidf_vectorizer.joblib
+      hash: md5
+      md5: d13a2ee9c51e252f600d9127a532ceb7
+      size: 185772
+    - path: src/train.py
+      hash: md5
+      md5: b1a6ad5543eed0e40c6c363b64a74e53
+      size: 8143
+    outs:
+    - path: models/best_model.joblib
+      hash: md5
+      md5: ead38ce6b535f6e09d3b3924fd18a338
+      size: 121055
+    - path: reports/model_comparison.json
+      hash: md5
+      md5: 77ab658622137849182aab61a15db3a0
+      size: 1312
