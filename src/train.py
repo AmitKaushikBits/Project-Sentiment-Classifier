@@ -19,7 +19,7 @@ from sklearn.metrics import (
 from sklearn.model_selection import train_test_split
 from sklearn.svm import LinearSVC
 
-EXPERIMENT_NAME = "sentiment-classifier"
+EXPERIMENT_NAME = "ML Mini Project - Sentiment Classifier"
 
 
 def load_data(clean_path, vectorizer_path):
