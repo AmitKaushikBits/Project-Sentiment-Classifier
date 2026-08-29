@@ -1,0 +1,42 @@
+{
+  "observations": 405,
+  "reference_rows": 13748,
+  "overall_status": "healthy",
+  "drift_score": 0,
+  "summary": {
+    "status": "healthy",
+    "drift_status": "stable",
+    "drift_detected": false,
+    "observations": 405,
+    "source": "logs/predictions_log.csv",
+    "message": "No material drift detected; model remains stable."
+  },
+  "label_distribution": {
+    "reference": {
+      "negative": 0.462758219377364,
+      "neutral": 0.07273785277858598,
+      "positive": 0.46450392784405004
+    },
+    "current": {
+      "negative": 0.43209876543209874,
+      "neutral": 0.13580246913580246,
+      "positive": 0.43209876543209874
+    }
+  },
+  "text_length_psi": 0.0,
+  "label_psi": 0.0438,
+  "edge_rate": 0.0,
+  "thresholds": {
+    "text_length_psi": 0.2,
+    "label_psi": 0.25,
+    "edge_rate": 0.1
+  },
+  "drift_detected": false,
+  "drift_status": "stable",
+  "psi_status": {
+    "text_length": "stable",
+    "label": "stable"
+  },
+  "observations_source": "logs/predictions_log.csv",
+  "retraining": null
+}

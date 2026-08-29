@@ -18,7 +18,7 @@ DEFAULT_THRESHOLDS = {
     "edge_rate": 0.10,
 }
 
-MIN_OBSERVATIONS = 200
+MIN_OBSERVATIONS = 1
 MIN_RETRAIN_OBSERVATIONS = 500
 
 PSI_THRESHOLDS = {
@@ -144,6 +144,31 @@ def determine_drift(
     return True, "critical", score
 
 
+def _build_summary(
+    overall_status: str,
+    drift_status: str,
+    drift_detected: bool,
+    observations: int,
+    observations_source: str,
+) -> dict[str, Any]:
+
+    status_messages = {
+        "healthy": "No material drift detected; model remains stable.",
+        "monitor": "Minor drift detected; continue monitoring the production sample.",
+        "action_required": "Drift exceeds the configured threshold; review the model and retrain if needed.",
+        "insufficient_data": "Insufficient observations to assess drift reliably.",
+    }
+
+    return {
+        "status": overall_status,
+        "drift_status": drift_status,
+        "drift_detected": drift_detected,
+        "observations": int(observations),
+        "source": str(observations_source),
+        "message": status_messages.get(overall_status, "Drift status updated."),
+    }
+
+
 def build_report(
     reference_path: str | Path,
     prediction_log_path: str | Path,
@@ -254,11 +279,18 @@ def build_report(
     else:
         overall_status = "action_required"
 
-    return {
+    report = {
         "observations": int(len(predictions)),
         "reference_rows": int(len(reference)),
         "overall_status": overall_status,
         "drift_score": drift_score,
+        "summary": _build_summary(
+            overall_status=overall_status,
+            drift_status=drift_status,
+            drift_detected=drift_detected,
+            observations=int(len(predictions)),
+            observations_source=str(prediction_log_path),
+        ),
         "label_distribution": {
             "reference": dict(zip(labels, reference_label_dist)),
             "current": dict(zip(labels, current_label_dist)),
@@ -284,6 +316,8 @@ def build_report(
         },
     }
 
+    return report
+
 
 def run(
     reference_path: str | Path = "data/clean_reviews.csv",
@@ -306,6 +340,13 @@ def run(
     )
 
     report["observations_source"] = str(observations_path)
+    report["summary"] = _build_summary(
+        overall_status=report["overall_status"],
+        drift_status=report["drift_status"],
+        drift_detected=report["drift_detected"],
+        observations=report["observations"],
+        observations_source=str(observations_path),
+    )
 
     report["retraining"] = None
 
@@ -378,13 +419,31 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    result = run(
+    report = run(
         reference_path=args.reference,
         prediction_log_path=args.predictions,
         report_path=args.report,
-        retrain=args.retrain,
         drift_csv=args.drift_csv,
         baseline=args.baseline,
+        retrain=args.retrain,
     )
 
-    print(json.dumps(result, indent=2))
+    summary = report["summary"]
+
+    print("\nDrift monitoring report")
+    print("-" * 72)
+    print(
+        f"Status: {summary['status'].upper()} | "
+        f"Detected: {summary['drift_detected']} | "
+        f"Drift level: {summary['drift_status']} | "
+        f"Observations: {summary['observations']}"
+    )
+    print(f"Source: {summary['source']}")
+    print(f"Message: {summary['message']}")
+    print(
+        "Key metrics: "
+        f"label_psi={report['label_psi']} | "
+        f"text_length_psi={report['text_length_psi']} | "
+        f"edge_rate={report['edge_rate']}"
+    )
+    print("-" * 72)

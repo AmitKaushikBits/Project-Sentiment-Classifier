@@ -12,5 +12,6 @@ data/raw/
 data/raw/*
 dvc-storage/*
 mlruns/
+*.zip
 *.db
 EOF

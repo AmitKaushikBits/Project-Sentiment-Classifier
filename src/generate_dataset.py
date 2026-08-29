@@ -14,10 +14,7 @@ if __package__:
 else:
     from ingest import build_neutral_reviews
 
-DATASETS = (
-    "kazanova/sentiment140",
-    "marklvl/sentiment-labelled-sentences-data-set",
-)
+DATASETS = ("kazanova/sentiment140", "marklvl/sentiment-labelled-sentences-data-set")
 POSITIVE_LABEL = 1
 NEGATIVE_LABEL = 0
 NEUTRAL_LABEL = 2

@@ -1,0 +1,33 @@
+{
+  "total_predictions": 484,
+  "label_counts": {
+    "negative": 194,
+    "neutral": 55,
+    "positive": 235
+  },
+  "label_distribution": {
+    "negative": 0.4008,
+    "neutral": 0.1136,
+    "positive": 0.4855,
+    "unknown": 0.0
+  },
+  "confidence": {
+    "mean": 0.6368,
+    "median": 0.6052,
+    "min": 0.4247,
+    "max": 0.9638
+  },
+  "token_stats": {
+    "mean_tokens": 8.79,
+    "median_tokens": 10.0,
+    "max_tokens": 12
+  },
+  "edge_case_rate": 0.0,
+  "hourly_volume": {
+    "2026-08-26T20:00:00+00:00": 6,
+    "2026-08-27T06:00:00+00:00": 21,
+    "2026-08-27T19:00:00+00:00": 16,
+    "2026-08-29T03:00:00+00:00": 259,
+    "2026-08-29T04:00:00+00:00": 182
+  }
+}
